@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List
 import pandas as pd
@@ -16,13 +17,14 @@ catalog_df = None
 corpus = None
 corpus_embeddings = None
 
+load_dotenv()
+api_key = os.getenv("GEMINI_API_KEY")
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global model, gemini_model, catalog_df, corpus, corpus_embeddings
 
     print("🚀 Loading models and data...")
-    load_dotenv()
-    api_key = os.getenv("GEMINI_API_KEY")
 
     model = SentenceTransformer('all-MiniLM-L6-v2')
 
@@ -51,6 +53,15 @@ async def lifespan(app: FastAPI):
     yield
 
 app = FastAPI(lifespan=lifespan)
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Replace "*" with your Streamlit app's URL for better security
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/health")
 def health_check():
