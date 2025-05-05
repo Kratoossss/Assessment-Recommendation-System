@@ -92,5 +92,5 @@ An AI-powered recommendation system designed to suggest the most relevant SHL as
 ### **Setup**:
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo/SHL_Assessment_Recommendation_System.git
-   cd SHL_Assessment_Recommendation_System
+   git clone https://github.com/Kratoossss/Assessment-Recommendation-System.git
+   cd Assessment_Recommendation_System
