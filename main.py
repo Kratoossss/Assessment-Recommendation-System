@@ -17,6 +17,8 @@ catalog_df = None
 corpus = None
 corpus_embeddings = None
 
+model = SentenceTransformer('models/all-MiniLM-L6-v2')  # Load the model from the local directory
+
 load_dotenv()
 api_key = os.getenv("GEMINI_API_KEY")
 
@@ -26,7 +28,7 @@ async def lifespan(app: FastAPI):
 
     print("🚀 Loading models and data...")
 
-    model = SentenceTransformer('all-MiniLM-L6-v2')
+    model = SentenceTransformer('models/all-MiniLM-L6-v2')  # Load the model from the local directory
 
     genai.configure(api_key=api_key)
     gemini_model = genai.GenerativeModel("gemini-1.5-pro")
