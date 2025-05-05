@@ -105,3 +105,8 @@ def recommend_assessments(request: QueryRequest):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+import os
+
+port = int(os.getenv("PORT", 8000))  # Default to 8000 if PORT is not set
+uvicorn.run(app, host="0.0.0.0", port=port)
